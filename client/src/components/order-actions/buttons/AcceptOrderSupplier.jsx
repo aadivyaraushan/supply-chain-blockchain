@@ -4,7 +4,7 @@ import { useEth } from '../../../contexts/EthContext';
 import { useParams } from 'react-router-dom';
 
 const AcceptOrderSupplier = ({ setMessageKey, setError }) => {
-  const { state, dispatch } = useEth();
+  const { state} = useEth();
   const { hash } = useParams();
   const onClick = async () => {
     const advancePercent = Number(

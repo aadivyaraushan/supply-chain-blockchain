@@ -4,7 +4,7 @@ import { useEth } from '../../../contexts/EthContext';
 import Button from '../../common/Button';
 
 const AcceptOrderShippingLine = ({ setMessageKey, setError }) => {
-  const { state, dispatch } = useEth();
+  const { state} = useEth();
   const { hash } = useParams();
   const onClick = async () => {
     const shippingLineAddress = await state.contract.methods

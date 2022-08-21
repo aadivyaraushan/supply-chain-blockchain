@@ -4,7 +4,7 @@ import { useEth } from '../../../contexts/EthContext';
 import Button from '../../common/Button';
 
 const AcceptOrderTrader = ({ setMessageKey, setError }) => {
-  const { state, dispatch } = useEth();
+  const { state} = useEth();
   const { hash } = useParams();
   const onPress = async () => {
     const advancePercent = Number(

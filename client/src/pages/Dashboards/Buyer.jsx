@@ -62,7 +62,7 @@ const BuyerDashboard = () => {
         setMessageKey(messageKey + 1);
         setError('Please enter a non-empty commodity');
       } else {
-        const hash = await state.web3.utils.soliditySha3({
+        const hash = state.web3.utils.soliditySha3({
           type: 'string',
           value: crypto.randomUUID(),
         });

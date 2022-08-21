@@ -12,8 +12,8 @@ import SingleValue from '../../components/order-actions/other/SingleValue';
 import UpdateStateModal from '../../components/order-actions/modals/UpdateStateModal';
 import CompleteProductionModal from '../../components/order-actions/modals/CompleteProductionModal';
 import { faDownload, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { AddShippingLineModal } from './../../components/order-actions/modals/AddShippingLineModal';
-import { RevertOrderShippingLine } from './../../components/order-actions/modals/RevertOrderShippingLine';
+import { AddShippingLineModal } from '../../components/order-actions/modals/AddShippingLineModal';
+import { RevertOrderShippingLine } from '../../components/order-actions/modals/RevertOrderShippingLine';
 import { useEth } from '../../contexts/EthContext';
 import { useParams } from 'react-router-dom';
 import { checkAmount } from '../../utils/checkAmount';
@@ -403,7 +403,7 @@ const SupplierOrderPage = () => {
             </p>
           </>
         )}
-        {Number(orderState) >= 16 && Number(orderState) !== '21' && (
+        {Number(orderState) >= 16 && orderState !== '21' && (
           <>
             <p className='ml-12 text-3xl mt-3'>
               <span className='font-medium'>Shipping line: </span>{' '}
