@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-supplychainpolygon-staging-194333-authRole",
+      "UnauthRoleArn": "arn:aws:iam::175352673629:role/amplify-supplychainpolygon-staging-194333-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::175352673629:role/amplify-supplychainpolygon-staging-194333-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-supplychainpolygon-staging-194333-deployment",
+      "UnauthRoleName": "amplify-supplychainpolygon-staging-194333-unauthRole",
+      "StackName": "amplify-supplychainpolygon-staging-194333",
+      "StackId": "arn:aws:cloudformation:ap-south-1:175352673629:stack/amplify-supplychainpolygon-staging-194333/8bfbd380-1cd2-11ed-afcd-0a3cb968fb2a",
+      "AmplifyAppId": "dptoijx561sem"
+    },
+    "categories": {
+      "auth": {
+        "SupplyChainPolygon": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+enum AccountType {
+  BUYER
+  TRADER
+  SUPPLIER
+  SHIPPING_LINE
+}
+
+type Users @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  address: String!
+  email: AWSEmail!
+  name: String!
+  desc: String!
+  type: AccountType!
+}
+ 
