@@ -32,7 +32,7 @@ const AcceptOrderSupplier = ({ setMessageKey, setError }) => {
         .sendTransaction({
           to: supplier,
           from: state.accounts[0],
-          value: state.web3.utils.toWei(String(advancePayment), 'gwei'),
+          value: state.web3.utils.toWei(String(Math.round(advancePayment)), 'gwei'),
         })
         .on('receipt', async () => {
           await state.contract.methods

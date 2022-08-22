@@ -31,7 +31,7 @@ const VerifyDocumentsBuyer = ({setMessageKey, setError}) => {
             .sendTransaction({
                 to: trader,
                 from: state.accounts[0],
-                value: state.web3.utils.toWei(String(paidAmount), 'gwei'),
+                value: state.web3.utils.toWei(String(Math.round(paidAmount)), 'gwei'),
             })
             .on('transactionHash', async () => {
                 await state?.contract?.methods
