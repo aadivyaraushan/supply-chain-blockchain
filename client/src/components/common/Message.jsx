@@ -5,6 +5,7 @@ import { faX } from '@fortawesome/free-solid-svg-icons';
 const TYPES = {
   error: 'bg-red-100 text-red-900',
   warning: 'bg-yellow-100 text-yellow-900',
+    success: 'bg-green-100 text-green-900',
 };
 
 const Message = ({ children, type, disabled = false, className }) => {

@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEth } from '../../../contexts/EthContext';
 import Button from '../../common/Button';
 
-const CloseOrder = () => {
+const CloseOrder = ({setMessageKey, setError}) => {
   const { hash } = useParams();
   const { state, dispatch } = useEth();
   const navigate = useNavigate();
@@ -16,8 +16,12 @@ const CloseOrder = () => {
           value: 'Closed',
         })
       )
-      .send({ from: state.accounts[0] });
-    navigate(-1);
+      .send({ from: state.accounts[0] }).on('receipt', () => {
+          navigate(-1);
+        }).on('error', (error) => {
+            setMessageKey(messageKey => messageKey + 1);
+            setError(error.message);
+        });
 
     // payment
   };

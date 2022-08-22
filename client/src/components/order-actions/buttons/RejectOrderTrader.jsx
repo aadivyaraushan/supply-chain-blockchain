@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEth } from '../../../contexts/EthContext';
 import Button from '../../common/Button';
 
-const RejectOrderTrader = () => {
+const RejectOrderTrader = ({setMessageKey, setError}) => {
   const { state, dispatch } = useEth();
   const { hash, address } = useParams();
   const [accountType, setAccountType] = useState('');
@@ -52,8 +52,12 @@ const RejectOrderTrader = () => {
   const onClick = async () => {
     await state.contract.methods
       .rejectOrderBuyerOrTrader(hash, buyer, trader)
-      .send({ from: state.accounts[0] });
-    navigate(-1);
+      .send({ from: state.accounts[0] }).on('receipt', () => {
+          navigate(-1);
+        }).on('error', (error) => {
+          setMessageKey(messageKey => messageKey + 1);
+          setError(error.message);
+        });
   };
 
   return (

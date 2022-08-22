@@ -26,6 +26,10 @@ const BuyerDashboard = () => {
   const [orderDetails, setOrderDetails] = useState([]);
   const [isAddingOrder, setIsAddingOrder] = useState(false);
 
+  useEffect(() => {
+    document.title = 'Dashboard | Supply Chain Assistant';
+  }, []);
+
   const handleSubmit = async () => {
     // console.log(orderDetails);
     // console.log(Object.entries(orderDetails));
@@ -95,8 +99,12 @@ const BuyerDashboard = () => {
             quantity,
             orderDetails[5][1]
           )
-          .send({ from: state.accounts[0] });
-        window.location.reload();
+          .send({ from: state.accounts[0] }).on('receipt', () => {
+              window.location.reload();
+            }).on('error', (error) => {
+              setMessageKey(messageKey => messageKey + 1);
+              setError(error.message);
+            })
       }
     }
   };
@@ -110,10 +118,7 @@ const BuyerDashboard = () => {
         Object.entries(traders).map((entry, index) => {
           const [key, trader] = entry;
           if (
-            !selectOptions.includes({
-              value: trader,
-              label: trader,
-            })
+            !(selectOptions.some((option) => option.label.email === trader.email))
           ) {
             setSelectOptions([
               ...selectOptions,

@@ -56,8 +56,12 @@ const BuyerOrderPage = () => {
           amountToTrader,
           orderDetails.percentAdvanceForTrader
         )
-        .send({ from: state.accounts[0] });
-      window.location.reload();
+        .send({ from: state.accounts[0] }).on('receipt', () => {
+            window.location.reload();
+          }).on('error', (error) => {
+            setMessageKey(messageKey => messageKey + 1);
+            setError(error.message);
+          });
     }
   };
 
@@ -196,7 +200,7 @@ const BuyerOrderPage = () => {
         </p>
         <p className='ml-12 text-3xl mt-3'>
           <span className='font-medium'>
-            Percent of advance payment from trader:{' '}
+            Percent of advance payment to trader:{' '}
           </span>{' '}
           {orderDetails?.percentAdvanceForTrader}
         </p>
@@ -302,7 +306,7 @@ const BuyerOrderPage = () => {
         <div className='flex flex-row-reverse w-full'>
           {orderState === '2' && (
             <>
-              <RejectOrderTrader />
+              <RejectOrderTrader setError={setError} setMessageKey={setMessageKey} />
               <RevertOrder onClick={() => setRevertOrderTraderVisible(true)} />
             </>
           )}
@@ -313,7 +317,7 @@ const BuyerOrderPage = () => {
             />
           )}
           {orderState === '26' && <VerifyDocumentsBuyer />}
-          {orderState === '27' && <CloseOrder />}
+          {orderState === '27' && <CloseOrder setMessageKey={setMessageKey} setError={setError} />}
         </div>
       </div>
       <>

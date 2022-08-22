@@ -34,11 +34,15 @@ const AcceptOrderSupplier = ({ setMessageKey, setError }) => {
           from: state.accounts[0],
           value: state.web3.utils.toWei(String(advancePayment), 'gwei'),
         })
-        .on('transactionHash', async () => {
+        .on('receipt', async () => {
           await state.contract.methods
             .acceptOrderSupplier(hash)
-            .send({ from: state.accounts[0] });
-          window.location.reload();
+            .send({ from: state.accounts[0] }).on('receipt', () => {
+                window.location.reload();
+              }).on('error', (error) => {
+                setMessageKey(messageKey => messageKey + 1);
+                setError(error.message);
+              })
         })
         .on('error', async () => {
           console.log('error returned');
@@ -50,8 +54,12 @@ const AcceptOrderSupplier = ({ setMessageKey, setError }) => {
     } else {
       await state.contract.methods
         .acceptOrderSupplier(hash)
-        .send({ from: state.accounts[0] });
-      window.location.reload();
+        .send({ from: state.accounts[0] }).on('receipt', () => {
+            window.location.reload();
+          }).on('error', (error) => {
+            setMessageKey(messageKey => messageKey + 1);
+            setError(error.message);
+          })
     }
   };
   return (

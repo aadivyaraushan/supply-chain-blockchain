@@ -3,7 +3,7 @@ import { useEth } from '../../../contexts/EthContext';
 import Button from '../../common/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const RejectOrderShippingLine = () => {
+const RejectOrderShippingLine = ({setMessageKey, setError}) => {
   const { state, dispatch } = useEth();
   const { hash, address } = useParams();
   const [shippingLine, setShippingLine] = useState();
@@ -30,12 +30,16 @@ const RejectOrderShippingLine = () => {
   const onClick = async () => {
     await state?.contract?.methods
       .rejectOrderShippingLine(hash, shippingLine)
-      .send({ from: state.accounts[0] });
-    if (shippingLine === state.accounts[0]) {
-      navigate(-1);
-    } else {
-      window.location.reload();
-    }
+      .send({ from: state.accounts[0] }).on('receipt', () => {
+          if (shippingLine === state.accounts[0]) {
+            navigate(-1);
+          } else {
+            window.location.reload();
+          }
+      }).on('error', (error) => {
+          setMessageKey(messageKey => messageKey + 1);
+          setError(error.message);
+        })
   };
 
   return (

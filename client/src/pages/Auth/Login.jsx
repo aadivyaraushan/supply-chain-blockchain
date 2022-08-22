@@ -15,6 +15,11 @@ const Login = () => {
   const { state, dispatch } = useEth();
 
   useEffect(() => {
+    document.title = 'Login | Supply Chain Assistant';
+  }, []);
+
+
+  useEffect(() => {
     const getAccount = async () => {
       try {
         const isBuyer = await state.contract?.methods

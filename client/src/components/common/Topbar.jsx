@@ -20,7 +20,7 @@ const Topbar = () => {
   return (
     <div className='flex flex-row h-16 justify-between'>
       <div className='bg-neutral-50 flex items-center shadow-lg w-28 h-10 rounded-xl mt-4 ml-4'>
-        <p className='text-xl mx-auto'>Logo</p>
+        <p className='text-xl mx-auto'>Supply Chain Assistant</p>
       </div>
       <div className='flex flex-row justify-between'>
         <div className='bg-neutral-50 flex items-center shadow-lg w-42 h-10 rounded-xl mt-4 ml-4 py-4 px-8'>

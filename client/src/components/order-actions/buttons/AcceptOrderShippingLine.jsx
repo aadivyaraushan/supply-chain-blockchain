@@ -28,11 +28,15 @@ const AcceptOrderShippingLine = ({ setMessageKey, setError }) => {
           'gwei'
         ),
       })
-      .on('transactionHash', async () => {
+      .on('receipt', async () => {
         await state?.contract?.methods
           .acceptOrderShippingLine(hash)
-          .send({ from: state.accounts[0] });
-        window.location.reload();
+          .send({ from: state.accounts[0] }).on('receipt', () => {
+              window.location.reload();
+            }).on('error', (error) => {
+              setMessageKey(messageKey => messageKey + 1);
+              setError(error.message);
+            })
       })
       .on('error', async () => {
         setMessageKey((messageKey) => messageKey + 1);

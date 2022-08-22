@@ -3,14 +3,18 @@ import { useParams } from 'react-router-dom';
 import { useEth } from '../../../contexts/EthContext';
 import Button from '../../common/Button';
 
-const GoodsShipped = () => {
+const GoodsShipped = ({setMessageKey, setError}) => {
   const { hash } = useParams();
   const { state, dispatch } = useEth();
   const onClick = async () => {
     await state?.contract?.methods
       .ship(hash)
-      .send({ from: state?.accounts[0] });
-    window.location.reload();
+      .send({ from: state?.accounts[0] }).on('receipt', (receipt) => {
+      window.location.reload();
+    }).on('error', (error) => {
+      setMessageKey('error');
+      setError(error.message);
+    });
   };
 
   return (

@@ -11,6 +11,11 @@ const Welcome = ({ signOut, user, data }) => {
   const [messageKey, setMessageKey] = useState(0);
 
   useEffect(() => {
+    document.title = 'Welcome | Supply Chain Assistant';
+  }, []);
+
+
+  useEffect(() => {
     const checkIfMetaMask = async () => {
       if (state?.accounts?.length === 0) {
         setMessage(
@@ -23,21 +28,23 @@ const Welcome = ({ signOut, user, data }) => {
     };
 
     checkIfMetaMask();
+  }, []);
 
+  useEffect(() => {
     const checkNet = async () => {
       const netId = await state.web3?.eth.net.getId();
       console.log(netId);
-      if (netId && netId !== 5777) {
+      if (netId && netId !== 80001) {
         setMessage(
           <Message type='error'>
             Please connect to the Polygon Mumbai testnet.
           </Message>
         );
-        setMessageKey(messageKey => messageKey + 1);
+        setMessageKey((messageKey) => messageKey + 1);
       }
     };
     checkNet();
-  }, []);
+  }, [state]);
 
   return (
     <div className='flex h-screen'>

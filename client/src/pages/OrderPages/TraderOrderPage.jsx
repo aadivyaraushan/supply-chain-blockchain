@@ -65,13 +65,17 @@ const TraderOrderPage = () => {
         )
       );
       await state.contract?.methods
-        .revertOrderBuyerOrTrader(
-          hash,
-          amountToTrader,
-          orderDetails.percentAdvanceForTrader
-        )
-        .send({ from: state.accounts[0] });
-      window.location.reload();
+          .revertOrderBuyerOrTrader(
+              hash,
+              amountToTrader,
+              orderDetails.percentAdvanceForTrader
+          )
+          .send({ from: state.accounts[0] }).on('receipt', () => {
+            window.location.reload();
+          }).on('error', (error) => {
+            setMessageKey(messageKey => messageKey + 1);
+            setError(error.message);
+          });
     }
   };
 
@@ -102,8 +106,12 @@ const TraderOrderPage = () => {
           newOrderDetails.percentAdvanceForSupplier,
           hash
         )
-        .send({ from: state.accounts[0] });
-      window.location.reload();
+        .send({ from: state.accounts[0] }).on('receipt', () => {
+            window.location.reload();
+          }).on('error', (error) => {
+            setMessageKey(messageKey => messageKey + 1);
+            setError(error.message);
+          });
     }
   };
 
@@ -128,8 +136,12 @@ const TraderOrderPage = () => {
           amountToSupplier,
           orderDetails.percentAdvanceForSupplier
         )
-        .send({ from: state.accounts[0] });
-      window.location.reload();
+        .send({ from: state.accounts[0] }).on('receipt', () => {
+            window.location.reload();
+          }).on('error', () => {
+            setMessageKey(messageKey => messageKey + 1);
+            setError(error.message);
+          })
     }
   };
 
@@ -144,8 +156,12 @@ const TraderOrderPage = () => {
       const cidInvoice = await client.put([documents[2]]);
       await state?.contract?.methods
         ?.updateDocumentsFromSupplier(cidInvoice, cidPl, cidBl, hash)
-        .send({ from: state.accounts[0] });
-      window.location.reload();
+        .send({ from: state.accounts[0] }).on('receipt', () => {
+            window.location.reload();
+          }).on('error', (error) => {
+            setMessageKey(messageKey => messageKey + 1);
+            setError(error.message);
+          })
     }
   };
 
@@ -386,7 +402,7 @@ const TraderOrderPage = () => {
           </span>
           {orderDetails?.percentAdvanceForTrader}
         </p>
-        {Number(orderState) >= 6 && (
+        {Number(orderState) >= 6 && orderState !== '10' && (
           <>
             <p className='ml-12 text-3xl mt-3'>
               <span className='font-medium'>Supplier: </span>{' '}
@@ -502,7 +518,7 @@ const TraderOrderPage = () => {
         <div className='flex flex-row-reverse w-full'>
           {(orderState === '1' || orderState === '3') && (
             <>
-              <RejectOrderTrader />
+              <RejectOrderTrader setError={setError} setMessageKey={setMessageKey}/>
               <RevertOrder onClick={() => setRevertOrderTraderVisible(true)} />
             </>
           )}
@@ -511,14 +527,14 @@ const TraderOrderPage = () => {
           )}
           {orderState === '7' && (
             <>
-              <RejectOrderSupplier />
+              <RejectOrderSupplier setError={setError} setMessageKey={setMessageKey} />
               <RevertOrder
                 onClick={() => setRevertOrderSupplierVisible(true)}
               />
             </>
           )}
           {(orderState === '1' || orderState === '3') && (
-            <ConfirmOrderTraderToBuyer />
+            <ConfirmOrderTraderToBuyer setMessageKey={setMessageKey} setError={setError} />
           )}
           {(orderState === '7' || orderState === '9') && (
             <AcceptOrderSupplier
