@@ -66,4 +66,10 @@ I’m proud that, despite how many of the technologies I used were new to me, I 
 
 ## **What's next for Supply Chain Assistant**
 
-I plan to present this application as an MVP to my mother’s SME for deployment. I will use the SME’s feedback to improve the product. Also, I may also add integrations/plugins with other related applications used by SMEs. I will create a new variant of this dApp for a system where there is no trader involved.
+I plan to introduce these new features:
+- extra payment for redoing the supply process from material sourcing
+- multiple suppliers
+- multiple shipping lines
+- airways / roadways (would have same system as shipping line)
+- include insurance for transport authority's equipment and supplier's goods
+- payments based on FOB(free on board) / CIF(cost insurance freight), CNF (cost and freight)
