@@ -5,7 +5,7 @@ import Button from '../../common/Button';
 
 const VerifyDocumentsTrader = ({ setMessageKey, setError }) => {
   const { hash } = useParams();
-  const { state, dispatch } = useEth();
+  const { state} = useEth();
   const onClick = async () => {
     const advancePercent = Number(
       await state.contract.methods
@@ -64,7 +64,7 @@ const VerifyDocumentsTrader = ({ setMessageKey, setError }) => {
       className='w-56  rounded-2xl mr-3'
       onClick={onClick}
     >
-      Verify Documents
+      Verify Documents & Pay Supplier
     </Button>
   );
 };

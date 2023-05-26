@@ -119,6 +119,7 @@ const SupplierOrderPage = () => {
             );
         } else {
             const client = makeStorageClient();
+            console.log(client);
             console.log(supplierDocuments[0], supplierDocuments[1]);
             const cidPL = await client.put([supplierDocuments[0]]);
             const cidInvoice = await client.put([supplierDocuments[1]]);
@@ -241,10 +242,10 @@ const SupplierOrderPage = () => {
             const amountInGwei = await state.contract?.methods
                 .getAmountToSupplier(hash)
                 .call({from: state.accounts[0]});
-            console.log(amountInGwei);
+            console.log("amountinGwei: " + amountInGwei);
             const amountInDollars =
                 (amountInGwei / 1000000000) * Number(await getCurrencyConversion());
-            // console.log(amountInDollars);
+            console.log("amountInDollars: " + amountInDollars);
             setOrderDetails((orderDetails) => ({
                 ...orderDetails,
                 amountToSupplier: amountInDollars,
@@ -343,7 +344,7 @@ const SupplierOrderPage = () => {
                         s.type('eq', 'SHIPPING_LINE')
                     );
                     console.log(shippingLines);
-                    Object.entries(shippingLines).map((entry, index) => {
+                    Object.entries(shippingLines).map((entry) => {
                         const [key, shippingLine] = entry;
                         console.log('shipping line: ', shippingLine);
 
@@ -397,6 +398,10 @@ const SupplierOrderPage = () => {
             }));
         }
     }, [orderState]);
+
+    useEffect(() => {
+        console.log(orderDetails)
+    }, [orderDetails]);
 
     return (
         <div>

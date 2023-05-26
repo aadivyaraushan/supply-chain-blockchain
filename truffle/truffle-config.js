@@ -47,8 +47,8 @@ module.exports = {
     //
     development: {
       host: '127.0.0.1', // Localhost (default: none)
-      port: 6545, // Standard Ethereum port (default: none)
-      network_id: '*', // Any network (default: none)
+      port: 7545, // Standard Ethereum port (default: none)
+      network_id: '*' // Any network (default: none)
     },
     matic: {
       provider: () =>
@@ -56,8 +56,8 @@ module.exports = {
       network_id: 80001,
       confirmations: 2,
       timeoutBlocks: 200,
-      skipDryRun: true,
-    },
+      skipDryRun: true
+    }
     //
     // An additional network, but with some advanced options…
     // advanced: {
@@ -103,12 +103,12 @@ module.exports = {
         // See the solidity docs for advice about optimization and evmVersion
         optimizer: {
           enabled: true,
-          runs: 200,
-        },
+          runs: 200
+        }
         // evmVersion: 'homestead',
         // }
-      },
-    },
+      }
+    }
 
     // Truffle DB is currently disabled by default; to enable it, change enabled:
     // false to enabled: true. The default storage location can also be
@@ -130,5 +130,5 @@ module.exports = {
     //     }
     //   }
     // }
-  },
+  }
 };
